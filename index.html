@@ -3,91 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mehmet Yusuf Ocak | Senior Systems Engineer & Researcher</title>
+    <title>Mehmet Yusuf Ocak | Systems Engineer & Defense Researcher</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-black text-light">
 
-<nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary sticky-top bg-black-transparent blur">
+<nav class="navbar navbar-expand-lg navbar-dark border-bottom border-secondary sticky-top bg-black-90">
     <div class="container">
-        <a class="navbar-brand fw-bold font-monospace" href="#">[YUSUFO<span class="text-primary">.SYS</span>]</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <a class="navbar-brand fw-bold font-monospace" href="#">[YUSUFO_OCK.INF]</a>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto font-monospace small">
-                <li class="nav-item"><a class="nav-link" href="#dashboard">/DASHBOARD</a></li>
-                <li class="nav-item"><a class="nav-link" href="#research">/RESEARCH</a></li>
-                <li class="nav-item"><a class="nav-link" href="#projects">/PROJECTS_ARCHIVE</a></li>
-                <li class="nav-item"><a class="nav-link" href="#experience">/HISTORY</a></li>
-                <li class="nav-item"><a class="nav-link" href="#contact">/CONNECT</a></li>
+                <li class="nav-item"><a class="nav-link" href="#defense">/DEFENSE_SYS</a></li>
+                <li class="nav-item"><a class="nav-link" href="#research">/RESEARCH_LAB</a></li>
+                <li class="nav-item"><a class="nav-link" href="#projects">/PROJECT_INDEX</a></li>
+                <li class="nav-item"><a class="nav-link" href="#stack">/TECH_STACK</a></li>
             </ul>
         </div>
     </div>
 </nav>
 
-<section class="hero-terminal py-5 border-bottom border-secondary">
+<header class="hero py-5 border-bottom border-secondary position-relative overflow-hidden">
+    <div class="scanline"></div>
     <div class="container py-5">
         <div class="row align-items-center">
-            <div class="col-lg-7 animate__animated animate__fadeInLeft">
-                <div class="terminal-window mb-4">
-                    <div class="terminal-header"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
-                    <div class="terminal-body font-monospace p-3 small">
-                        <p class="mb-1"><span class="text-success">visitor@portfolio:~$</span> whoami</p>
-                        <p class="text-primary mb-1">Mehmet Yusuf Ocak</p>
-                        <p class="mb-1"><span class="text-success">visitor@portfolio:~$</span> cat status.txt</p>
-                        <p class="text-secondary">Systems Engineer | Otonom Sistemler Araştırmacısı | GPA: 3.67</p>
-                        <p class="mb-0"><span class="text-success">visitor@portfolio:~$</span> <span class="cursor">_</span></p>
-                    </div>
-                </div>
-                <h1 class="display-2 fw-black mb-3 text-uppercase">Architecture <span class="text-outline text-primary">&</span> Autonomy</h1>
-                <p class="lead text-secondary mb-4 col-md-10">Otonom hava savunma sistemlerinden dağıtık bulut mimarilerine uzanan 30+ proje ve akademik araştırma külliyatı.</p>
+            <div class="col-lg-8">
+                <div class="font-monospace text-primary mb-2">>> IDENTITY_VERIFIED: MEHMET YUSUF OCAK</div>
+                <h1 class="display-1 fw-black tracking-tighter mb-4 text-uppercase">Systems <span class="text-outline">Engineer</span>.</h1>
+                <p class="lead text-secondary fs-4 border-start border-primary border-4 ps-4 mb-5">
+                    Otonom Hava Savunma (TEKNOFEST #6), TÜBİTAK 3501 Araştırmaları ve 30+ GitHub Reposu ile 
+                    <span class="text-white fw-bold">Düşük Gecikmeli Dağıtık Sistemler</span> ve <span class="text-white fw-bold">Robotik Kontrol</span> mimarı.
+                </p>
                 <div class="d-flex gap-3">
-                    <a href="https://github.com/YusufOck" target="_blank" class="btn btn-primary px-4 py-2 fw-bold">PROJECTS_GITHUB</a>
-                    <a href="mailto:yusuf.ock2611@gmail.com" class="btn btn-outline-light px-4 py-2">CONTACT_ME</a>
+                    <a href="https://github.com/YusufOck" class="btn btn-primary btn-lg rounded-0 px-5">GITHUB_CORE [30+ REPOS]</a>
+                    <a href="mailto:yusuf.ock2611@gmail.com" class="btn btn-outline-light btn-lg rounded-0 px-4">CONNECT_SYS</a>
                 </div>
             </div>
-            <div class="col-lg-5 d-none d-lg-block animate__animated animate__fadeInRight">
-                <div class="metric-grid">
-                    <div class="metric-card"><h3>6<span class="text-primary">/</span>515</h3><p>TEKNOFEST RANK</p></div>
-                    <div class="metric-card"><h3>30+</h3><p>GITHUB REPOS</p></div>
-                    <div class="metric-card"><h3>3.67</h3><p>ACADEMIC GPA</p></div>
-                    <div class="metric-card"><h3>2+</h3><p>TÜBİTAK ROLES</p></div>
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="stats-panel p-4 border border-secondary bg-dark-transparent">
+                    <div class="stat-item mb-4">
+                        <div class="small font-monospace text-secondary">AIR_DEFENSE_RANK</div>
+                        <div class="h2 fw-bold text-primary">06 / 515</div>
+                    </div>
+                    <div class="stat-item mb-4">
+                        <div class="small font-monospace text-secondary">ACADEMIC_GPA</div>
+                        <div class="h2 fw-bold text-primary">3.67 / 4.00</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="small font-monospace text-secondary">RESEARCH_PROJECTS</div>
+                        <div class="h2 fw-bold text-primary">03+ ACTIVE</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section id="defense" class="py-5 bg-darker">
+    <div class="container">
+        <h2 class="section-title mb-5 font-monospace"><span class="text-primary">01.</span> TACTICAL_ENGAGEMENT_SYSTEMS</h2>
+        <div class="row g-4">
+            <div class="col-12">
+                <div class="defense-card p-5 border border-secondary position-relative">
+                    <div class="badge bg-danger rounded-0 mb-3">HIGH_STAKES_COMPETITION</div>
+                    <h3 class="fw-bold mb-3">Otonom Hava Savunma Sistemi (TEKNOFEST 2025)</h3>
+                    <p class="text-secondary mb-4">515 takım arasından Türkiye 6.lığı. "One-Shot Target Acquisition" mimarisi ile bilinmeyen hedeflerin tek bir kareden özniteliklerini çıkararak, model bağımlılığı olmadan gerçek zamanlı angajman sağlayan sistem tasarlandı.</p>
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <div class="tech-box p-3 border border-secondary-subtle small">
+                                <strong>Tracking Engine:</strong> Sınıftan bağımsız (class-agnostic) hedef gömme (embeddings) üretimi.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tech-box p-3 border border-secondary-subtle small">
+                                <strong>Control Loop:</strong> ROS 2 çerçevesinde yüksek hassasiyetli PID tabanlı yörünge hizalaması.
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tech-box p-3 border border-secondary-subtle small">
+                                <strong>Integration:</strong> OpenCV ve PID kontrolün ROS 2 mimarisine otonom entegrasyonu.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="defense-card p-4 border border-secondary h-100">
+                    <h4 class="fw-bold text-primary">Savaşan İHA (Kamikaze)</h4>
+                    <p class="small text-secondary">ROS/Gazebo ortamlarında otonom rakip İHA'ya kilitlenme ve terminal aşamada otonom önleme görevleri. Taktiksel karar verme algoritmalarının C++ ve Python ile implementasyonu.</p>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="defense-card p-4 border border-secondary h-100">
+                    <h4 class="fw-bold text-primary">Model Uydu (SBTÜ SKY ORBIT)</h4>
+                    <p class="small text-secondary">TEKNOFEST Model Uydu Yarışması kapsamında telemetri, faydalı yük ve kurtarma sistemlerinin tasarım ve simülasyonu.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section id="research" class="py-5 bg-darker">
-    <div class="container py-5">
-        <div class="row">
-            <div class="col-12 mb-5">
-                <h2 class="section-heading font-monospace text-primary">// ARAŞTIRMA VE AKADEMİK ÇALIŞMALAR</h2>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="research-box p-4 border border-secondary h-100 position-relative overflow-hidden">
-                    <div class="accent-line"></div>
-                    <h4 class="fw-bold mb-2">TÜBİTAK 3501 | Otonom Sistemler Araştırmacısı</h4>
-                    <p class="text-secondary small font-monospace mb-3">Mart 2026 - Günümüz | Sivas</p>
-                    <ul class="list-unstyled text-secondary small">
-                        <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> RF kaynak lokalizasyonu odaklı LoRa modülasyonu ve telemetri tasarımı.</li>
-                        <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> MAVLink protokolü üzerinden çoklu İHA sürülerinin RSSI verisi iletimi.</li>
-                        <li><i class="fas fa-angle-right text-primary me-2"></i> Kalman/Particle Filter entegrasyonu ile gürültülü sinyal optimizasyonu.</li>
+<section id="research" class="py-5 border-y border-secondary">
+    <div class="container">
+        <h2 class="section-title mb-5 font-monospace text-end">02. STRATEGIC_RESEARCH_LAB</h2>
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="research-display p-4 bg-primary-soft border border-primary">
+                    <h3 class="fw-bold mb-3 text-primary">TÜBİTAK 3501 Araştırmacısı</h3>
+                    <p class="font-monospace small">Haberleşme ve Otonom Sistemler</p>
+                    <ul class="list-unstyled text-secondary mt-4">
+                        <li class="mb-2"><i class="fas fa-microchip me-2 text-primary"></i> RF kaynak lokalizasyonu için LoRa modülasyon katmanı.</li>
+                        <li class="mb-2"><i class="fas fa-signal me-2 text-primary"></i> MAVLink üzerinden gerçek zamanlı RSSI veri senkronizasyonu.</li>
+                        <li class="mb-2"><i class="fas fa-code-branch me-2 text-primary"></i> Kalman ve Particle Filter optimizasyonları.</li>
+                        <li><i class="fas fa-network-wired me-2 text-primary"></i> Çoklu İHA sürüleri için otonom formasyon yazılımları.</li>
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6 mb-4">
-                <div class="research-box p-4 border border-secondary h-100">
-                    <h4 class="fw-bold mb-2">İHA Kontrol ve Simülasyon Laboratuvarı</h4>
-                    <p class="text-secondary small font-monospace mb-3">Ekim 2024 - Kasım 2024</p>
-                    <ul class="list-unstyled text-secondary small">
-                        <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> ROS 2 ve Gazebo ortamlarında otonom uçuş kontrol doğrulama testleri.</li>
-                        <li class="mb-2"><i class="fas fa-angle-right text-primary me-2"></i> PX4/ArduPilot ekosistemine özel otonom '+' formasyon yazılımları.</li>
-                    </ul>
+            <div class="col-lg-6 ps-lg-5">
+                <h4 class="fw-bold mb-4 font-monospace">// MISSION_SPECS</h4>
+                <div class="accordion accordion-flush bg-transparent" id="researchAccordion">
+                    <div class="accordion-item bg-transparent border-bottom border-secondary">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed bg-transparent text-white shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#spec1">
+                                RF_LOCALIZATION_MIDDLEWARE
+                            </button>
+                        </h2>
+                        <div id="spec1" class="accordion-collapse collapse" data-bs-parent="#researchAccordion">
+                            <div class="accordion-body text-secondary small">Haberleşme hattındaki gecikmeleri minimize eden ara katman yazılımları kurgulanarak, gürültülü sinyallerin filtreleme aşamasına hazırlanması optimize edildi.</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -96,102 +142,51 @@
 
 <section id="projects" class="py-5">
     <div class="container">
-        <h2 class="section-heading font-monospace text-primary mb-5">// PROJE ARŞİVİ [TOP_SELECTION]</h2>
+        <h2 class="section-title mb-5 font-monospace"><span class="text-primary">03.</span> FULL_PROJECT_INVENTORY</h2>
         <div class="row g-4">
-            <div class="col-lg-6">
-                <div class="project-item p-4 bg-dark h-100 border-start border-primary border-4">
-                    <div class="d-flex justify-content-between align-items-start mb-3">
-                        <h3 class="h4 fw-bold">Otonom Hava Savunma Sistemi</h3>
-                        <span class="badge bg-primary text-black fw-bold">TURKIYE #6</span>
+            <div class="col-lg-7">
+                <div class="project-bento p-4 border border-secondary bg-dark h-100">
+                    <div class="d-flex justify-content-between mb-3">
+                        <h4 class="fw-bold">ResearchOS: Semantic Engine</h4>
+                        <code class="text-primary">DJANGO/POSTGRES</code>
                     </div>
-                    <p class="text-secondary small mb-3">One-Shot Target Acquisition boru hattı ile bilinmeyen hedeflerden tek kareden öznitelik tanımlayıcıları çıkararak model bağımlılığı olmadan kilitlenme sağlayan sistem.</p>
-                    <div class="tech-stack mb-4">
-                        <span class="tech-tag">ROS 2</span><span class="tech-tag">OpenCV</span><span class="tech-tag">PID</span><span class="tech-tag">Python</span>
-                    </div>
+                    <p class="text-secondary small">Boyce-Codd Normal Formu (BCNF) uyumlu veritabanı şeması ve NLP tabanlı araştırmacı eşleştirme motoru. Akademik meta verileri "Visible Talent" verisine dönüştüren SSR destekli sistem.</p>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="project-item p-4 bg-dark h-100 border-start border-secondary border-4">
-                    <h3 class="h4 fw-bold mb-3">ResearchOS - YZ Akademik Motoru</h3>
-                    <p class="text-secondary small mb-3">Boyce-Codd Normal Formu'na (BCNF) uygun karmaşık ilişkisel veritabanı şeması ve NLP tabanlı semantik analiz ile araştırmacı eşleştirme motoru.</p>
-                    <div class="tech-stack mb-4">
-                        <span class="tech-tag">Django</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">Next.js</span><span class="tech-tag">NLP</span>
-                    </div>
+            <div class="col-lg-5">
+                <div class="project-bento p-4 border border-secondary bg-dark h-100">
+                    <h4 class="fw-bold mb-2 text-primary">AI4KYC (ArkSigner)</h4>
+                    <p class="text-secondary small">Hologram tespiti ve WebSocket üzerinden düşük gecikmeli kimlik doğrulama mimarisi.</p>
+                    <code class="text-info small">.NET CORE / WEBSOCKETS</code>
                 </div>
             </div>
             <div class="col-lg-4">
-                <div class="project-item p-4 bg-dark h-100 border-start border-info border-4">
-                    <h5 class="fw-bold mb-3">Donanımsal Trafik Denetleyicisi</h5>
-                    <p class="text-secondary smaller mb-3">CPU yükü olmadan deterministik yönetim sağlayan, K-Map ile optimize edilmiş FSM donanım tasarımı.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">Digital Logic</span><span class="tech-tag">FSM</span><span class="tech-tag">Logisim</span>
+                <div class="project-bento p-4 border border-secondary bg-dark h-100">
+                    <h5 class="fw-bold">Deterministic Traffic Controller</h5>
+                    <p class="text-secondary smaller">K-Map ile optimize edilmiş, CPU yükü gerektirmeyen donanımsal FSM tasarımı.</p>
+                </div>
+            </div>
+            <div class="col-lg-8">
+                <div class="project-bento p-4 border border-primary-subtle bg-dark h-100 d-flex align-items-center justify-content-center text-center">
+                    <div>
+                        <h3 class="fw-bold">+25 REPOS ARCHIVED ON GITHUB</h3>
+                        <p class="text-secondary small font-monospace">YOLOv8 Real-time Tracking, AWS S3 Automation, Docker Microservices...</p>
+                        <a href="https://github.com/YusufOck?tab=repositories" class="btn btn-outline-primary btn-sm rounded-0 mt-3">ACCESS_FULL_REGISTRY</a>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="project-item p-4 bg-dark h-100 border-start border-danger border-4">
-                    <h5 class="fw-bold mb-3">Savaşan İHA (Kamikaze Görevi)</h5>
-                    <p class="text-secondary smaller mb-3">Otonom rakip İHA'ya kilitlenme ve taktik savaş mantığının Gazebo ortamında ROS ile simülasyonu.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">C++</span><span class="tech-tag">ROS</span><span class="tech-tag">Gazebo</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="project-item p-4 bg-dark h-100 border-start border-warning border-4">
-                    <h5 class="fw-bold mb-3">AI4KYC - Kimlik Doğrulama</h5>
-                    <p class="text-secondary smaller mb-3">Gerçek zamanlı hologram tespiti ve WebSocket üzerinden düşük gecikmeli mobil doğrulama servisi.</p>
-                    <div class="tech-stack">
-                        <span class="tech-tag">.NET Core</span><span class="tech-tag">WebSockets</span><span class="tech-tag">AWS S3</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="text-center mt-5">
-            <p class="text-secondary small font-monospace">Diğer 25+ proje GitHub üzerinde arşivlendi.</p>
-            <a href="https://github.com/YusufOck?tab=repositories" target="_blank" class="btn btn-outline-primary fw-bold">FULL_REPOSITORY_INDEX</a>
-        </div>
-    </div>
-</section>
-
-<section id="experience" class="py-5 bg-darker">
-    <div class="container py-5">
-        <h2 class="section-heading font-monospace text-primary mb-5">// MESLEKİ GEÇMİŞ</h2>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h5 class="text-primary fw-bold">ArkSigner Yazılım - Bilgisayar Mühendisliği Stajyeri</h5>
-                    <p class="small text-secondary font-monospace">Haziran 2025 - Temmuz 2025 | Ankara</p>
-                    <p class="small">Amazon S3 ile milyonlarca video varlığı için asenkron .NET doğrulama servisleri geliştirildi.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h5 class="text-primary fw-bold">Docker Ürün Geliştirme Stajyeri</h5>
-                    <p class="small text-secondary font-monospace">Kasım 2024 - Aralık 2024</p>
-                    <p class="small">Bulut ortamlarında mikroservis senkronizasyonu ve konteynerleştirme stratejileri üzerine çalışma.</p>
-                </div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-content">
-                    <h5 class="text-primary fw-bold">Huawei ICT Topluluğu - Proje Yöneticisi</h5>
-                    <p class="small text-secondary font-monospace">Kasım 2025 - Günümüz</p>
-                    <p class="small">Akademik girişimler ve teknik geliştirme ekipleri arası koordinasyon yönetimi.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<footer id="contact" class="py-5 border-top border-secondary bg-black">
+<footer class="py-5 border-top border-secondary bg-black">
     <div class="container text-center">
-        <h3 class="fw-bold text-white mb-4">BAĞLANTI KUR</h3>
         <div class="d-flex justify-content-center gap-4 fs-3 mb-4">
             <a href="https://github.com/YusufOck" class="text-secondary hover-primary"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/yusufock" class="text-secondary hover-primary"><i class="fab fa-linkedin"></i></a>
-            <a href="mailto:yusuf.ock2611@gmail.com" class="text-secondary hover-primary"><i class="fas fa-envelope"></i></a>
         </div>
-        <p class="text-secondary small font-monospace">Generated by Engineering Intelligence | 2026</p>
+        <p class="small text-secondary font-monospace mb-0">MEHMET YUSUF OCAK // SYSTEM_CORE_2026</p>
+        <p class="smaller text-secondary-50 font-monospace">"Excellent engineering is the only standard."</p>
     </div>
 </footer>
 

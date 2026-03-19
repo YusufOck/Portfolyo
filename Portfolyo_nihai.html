@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mehmet Yusuf Ocak | Systems & Defense Architect</title>
+  <style>
+    /* ==========================================================================
+       1. CORE ARCHITECTURE & TOKENS
+       ========================================================================== */
+    :root {
+      --sys-bg: #020617;
+      --sys-surface: #0f172a;
+      --sys-surface-hover: #1e293b;
+      --sys-border: #334155;
+      
+      --brand-primary: #0ea5e9;
+      --brand-primary-dim: rgba(14, 165, 233, 0.15);
+      --brand-secondary: #3b82f6;
+      --status-success: #10b981;
+      --status-danger: #ef4444;
+
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-inverse: #020617;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+
+      --radius-sm: 6px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      
+      --max-w: 1200px;
+      --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    
+    body {
+      background-color: var(--sys-bg);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      background-image: 
+        radial-gradient(circle at 15% 50%, rgba(14, 165, 233, 0.05), transparent 25%),
+        radial-gradient(circle at 85% 30%, rgba(59, 130, 246, 0.05), transparent 25%);
+    }
+
+    .container { width: min(var(--max-w), 100% - 2rem); margin: 0 auto; }
+    a { color: inherit; text-decoration: none; transition: var(--transition); }
+    ul { list-style: none; }
+
+    /* ==========================================================================
+       2. TYPOGRAPHY & UTILITIES
+       ========================================================================== */
+    h1, h2, h3, h4 { font-weight: 700; line-height: 1.2; letter-spacing: -0.02em; }
+    h1 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 900; letter-spacing: -0.04em; }
+    h2 { font-size: clamp(1.8rem, 3vw, 2.5rem); margin-bottom: 0.5rem; }
+    
+    .font-mono { font-family: var(--font-mono); }
+    .text-primary { color: var(--brand-primary); }
+    .text-muted { color: var(--text-muted); }
+    
+    .section-header { margin-bottom: 3rem; border-bottom: 1px solid var(--sys-border); padding-bottom: 1rem; }
+    .section-header p { color: var(--text-muted); font-size: 1.1rem; max-width: 60ch; margin-top: 0.5rem; }
+
+    .badge {
+      display: inline-flex; align-items: center; padding: 0.25rem 0.75rem;
+      border-radius: 999px; font-size: 0.75rem; font-weight: 700; font-family: var(--font-mono);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+    .badge-primary { background: var(--brand-primary-dim); color: var(--brand-primary); border: 1px solid rgba(14, 165, 233, 0.3); }
+    .badge-danger { background: rgba(239, 68, 68, 0.1); color: var(--status-danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.75rem 1.5rem; border-radius: var(--radius-sm); font-weight: 600;
+      font-family: var(--font-mono); font-size: 0.875rem; transition: var(--transition);
+      cursor: pointer; border: 1px solid transparent; text-transform: uppercase;
+    }
+    .btn-primary { background: var(--brand-primary); color: var(--text-inverse); }
+    .btn-primary:hover { background: #0284c7; box-shadow: 0 0 20px var(--brand-primary-dim); transform: translateY(-2px); }
+    .btn-outline { background: transparent; border-color: var(--sys-border); color: var(--text-main); }
+    .btn-outline:hover { border-color: var(--brand-primary); color: var(--brand-primary); background: var(--brand-primary-dim); }
+
+    /* ==========================================================================
+       3. NAVIGATION
+       ========================================================================== */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2, 6, 23, 0.85); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--sys-border); padding: 1rem 0;
+    }
+    .nav-inner { display: flex; justify-content: space-between; align-items: center; }
+    .brand { display: flex; align-items: center; gap: 1rem; }
+    .logo-box {
+      width: 40px; height: 40px; background: var(--brand-primary); color: var(--text-inverse);
+      font-weight: 900; font-size: 1.2rem; display: grid; place-items: center; border-radius: var(--radius-sm);
+    }
+    .brand-text { font-weight: 700; letter-spacing: 0.02em; line-height: 1.2; }
+    .brand-text span { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 400; font-family: var(--font-mono); }
+    
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--text-muted); transition: var(--transition); }
+    .nav-links a:hover { color: var(--text-main); }
+
+    /* ==========================================================================
+       4. HERO & METRICS
+       ========================================================================== */
+    .hero { padding: 6rem 0 4rem; display: grid; grid-template-columns: 1fr; gap: 3rem; }
+    .hero-content { max-width: 80ch; }
+    .sys-status {
+      display: inline-flex; align-items: center; gap: 0.5rem; font-family: var(--font-mono);
+      font-size: 0.875rem; color: var(--status-success); margin-bottom: 1.5rem;
+    }
+    .sys-status::before { content: ''; width: 8px; height: 8px; background: var(--status-success); border-radius: 50%; box-shadow: 0 0 10px var(--status-success); }
+    
+    .hero-lead { font-size: 1.25rem; color: var(--text-muted); margin: 1.5rem 0 2.5rem; line-height: 1.8; }
+    
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-top: 3rem; }
+    .metric-box {
+      background: var(--sys-surface); border: 1px solid var(--sys-border);
+      padding: 1.5rem; border-radius: var(--radius-md); border-top: 3px solid var(--brand-primary);
+    }
+    .metric-value { font-size: 2.5rem; font-weight: 900; font-family: var(--font-mono); color: var(--text-main); line-height: 1; margin-bottom: 0.5rem; }
+    .metric-label { font-size: 0.875rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+
+    /* ==========================================================================
+       5. OPERATIONS (EXPERIENCE TIMELINE)
+       ========================================================================== */
+    section { padding: 5rem 0; }
+    
+    .timeline { position: relative; padding-left: 2rem; border-left: 2px solid var(--sys-border); }
+    .timeline-item { position: relative; margin-bottom: 3rem; }
+    .timeline-item:last-child { margin-bottom: 0; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2.4rem; top: 0; width: 12px; height: 12px;
+      border-radius: 50%; background: var(--sys-bg); border: 2px solid var(--brand-primary);
+    }
+    .timeline-item:hover::before { background: var(--brand-primary); box-shadow: 0 0 10px var(--brand-primary); }
+    
+    .tl-header { margin-bottom: 1rem; }
+    .tl-date { font-family: var(--font-mono); font-size: 0.85rem; color: var(--brand-primary); margin-bottom: 0.25rem; }
+    .tl-role { font-size: 1.3rem; font-weight: 700; color: var(--text-main); }
+    .tl-org { font-size: 1rem; color: var(--text-muted); font-weight: 500; }
+    
+    .tl-body { background: var(--sys-surface); border: 1px solid var(--sys-border); padding: 1.5rem; border-radius: var(--radius-md); }
+    .tl-body ul { display: grid; gap: 0.75rem; }
+    .tl-body li { position: relative; padding-left: 1.25rem; color: var(--text-muted); font-size: 0.95rem; }
+    .tl-body li::before { content: '>'; position: absolute; left: 0; color: var(--brand-primary); font-family: var(--font-mono); font-weight: 700; }
+
+    /* ==========================================================================
+       6. TACTICAL DEPLOYMENTS (PROJECTS)
+       ========================================================================== */
+    .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.5rem; }
+    
+    .bento-card {
+      background: var(--sys-surface); border: 1px solid var(--sys-border);
+      border-radius: var(--radius-lg); padding: 2rem; display: flex; flex-direction: column;
+      transition: var(--transition); position: relative; overflow: hidden;
+    }
+    .bento-card:hover { border-color: var(--brand-primary); transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+    
+    .span-12 { grid-column: span 12; }
+    .span-8 { grid-column: span 8; }
+    .span-6 { grid-column: span 6; }
+    .span-4 { grid-column: span 4; }
+
+    .card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem; gap: 1rem; }
+    .card-title { font-size: 1.4rem; font-weight: 800; color: var(--text-main); }
+    .card-desc { color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem; flex-grow: 1; }
+    
+    .tech-stack { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: auto; padding-top: 1.5rem; border-top: 1px solid var(--sys-border); }
+    .tech-tag {
+      font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);
+      background: rgba(255,255,255,0.03); border: 1px solid var(--sys-border);
+      padding: 0.25rem 0.5rem; border-radius: 4px;
+    }
+
+    /* ==========================================================================
+       7. DYNAMIC REPOSITORY INDEX
+       ========================================================================== */
+    .archive-controls { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem; }
+    .search-input {
+      width: 100%; padding: 1rem 1.5rem; background: var(--sys-surface);
+      border: 1px solid var(--sys-border); border-radius: var(--radius-md);
+      color: var(--text-main); font-family: var(--font-mono); font-size: 0.95rem;
+      transition: var(--transition);
+    }
+    .search-input:focus { outline: none; border-color: var(--brand-primary); box-shadow: 0 0 0 2px var(--brand-primary-dim); }
+    
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+    .filter-btn {
+      padding: 0.5rem 1rem; background: var(--sys-surface); border: 1px solid var(--sys-border);
+      color: var(--text-muted); border-radius: 999px; font-size: 0.85rem; font-weight: 600;
+      transition: var(--transition);
+    }
+    .filter-btn.active, .filter-btn:hover {
+      background: var(--brand-primary-dim); border-color: var(--brand-primary); color: var(--brand-primary);
+    }
+
+    .repo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+    
+    .repo-item {
+      padding: 1.5rem; border: 1px solid var(--sys-border); border-radius: var(--radius-md);
+      background: var(--sys-surface); transition: var(--transition);
+      display: flex; flex-direction: column; height: 100%;
+    }
+    .repo-item:hover { border-color: var(--brand-primary); transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+    
+    .repo-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.75rem; gap: 1rem; }
+    .repo-item h4 { font-size: 1.1rem; word-break: break-word; line-height: 1.3; }
+    .repo-type {
+      font-size: 0.7rem; font-family: var(--font-mono); padding: 0.2rem 0.5rem;
+      border-radius: 4px; border: 1px solid var(--sys-border); text-transform: uppercase;
+    }
+    .repo-type.original { color: var(--brand-primary); border-color: rgba(14, 165, 233, 0.4); background: rgba(14, 165, 233, 0.1); }
+    .repo-type.fork { color: var(--status-warning); border-color: rgba(245, 158, 11, 0.4); background: rgba(245, 158, 11, 0.1); }
+    .repo-type.coursework { color: var(--text-muted); }
+
+    .repo-item p { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1.5rem; flex-grow: 1; }
+    
+    .repo-bottom {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 1rem; border-top: 1px solid var(--sys-border);
+      font-family: var(--font-mono); font-size: 0.8rem;
+    }
+    .repo-lang { color: var(--text-main); }
+    .repo-link { color: var(--brand-primary); font-weight: 700; }
+    .repo-link:hover { text-decoration: underline; }
+
+    /* ==========================================================================
+       8. FOOTER & RESPONSIVE
+       ========================================================================== */
+    footer { padding: 3rem 0; text-align: center; border-top: 1px solid var(--sys-border); margin-top: 4rem; }
+    
+    @media (max-width: 1024px) {
+      .span-8, .span-4, .span-6 { grid-column: span 12; }
+    }
+    @media (max-width: 768px) {
+      h1 { font-size: 2.5rem; }
+      .nav-links { display: none; }
+      .hero { padding: 4rem 0 2rem; }
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .metrics-grid { grid-template-columns: 1fr; }
+      .card-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <div class="brand">
+        <div class="logo-box">M</div>
+        <div class="brand-text">
+          MEHMET YUSUF OCAK
+          <span>Systems & Defense Architect</span>
+        </div>
+      </div>
+      <div class="nav-links">
+        <a href="#operations">Operations</a>
+        <a href="#deployments">Deployments</a>
+        <a href="#registry">Archive</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="sys-status">SYSTEM INITIALIZED // ROOT ACCESS GRANTED</div>
+        <h1>Engineering logic over theoretical concepts.</h1>
+        <p class="hero-lead">
+          Otonom Hava Savunma Sistemleri, RF tabanlı drone haberleşme mimarileri ve dağıtık bulut servisleri üzerine uzmanlaşmış <strong>Bilgisayar Mühendisi</strong>. Bu portfolyo, saf mühendislik çıktılarını ve endüstriyel saha operasyonlarını belgelemektedir.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="https://github.com/YusufOck" target="_blank" class="btn btn-primary">Initialize GitHub</a>
+          <a href="https://www.linkedin.com/in/mehmetyusufocak63" target="_blank" class="btn btn-outline">LinkedIn Relay</a>
+        </div>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric-box">
+          <div class="metric-value">6<span style="font-size: 1.5rem; color: var(--text-muted)">/515</span></div>
+          <div class="metric-label">TEKNOFEST Rank</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">3.67</div>
+          <div class="metric-label">Academic GPA</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">05</div>
+          <div class="metric-label">Field Operations</div>
+        </div>
+        <div class="metric-box">
+          <div class="metric-value">31</div>
+          <div class="metric-label">System Repositories</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="operations">
+      <div class="section-header">
+        <h2>Professional Operations</h2>
+        <p>Endüstriyel stajlar, araştırma laboratuvarı görevleri ve proje yönetimi operasyonları.</p>
+      </div>
+
+      <div class="timeline">
+        
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-date">MART 2026 — GÜNÜMÜZ</div>
+            <div class="tl-role">Haberleşme ve Otonom Sistemler Araştırmacısı</div>
+            <div class="tl-org">TÜBİTAK 3501 | Sivas Bilim ve Teknoloji Üniversitesi</div>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li>RF kaynak lokalizasyonu odaklı projede, LoRa modülasyonu kullanarak İHA-Yer İstasyonu arası uzun menzilli telemetri katmanı tasarımı[cite: 7, 12].</li>
+              <li>MAVLink protokolü üzerinden çoklu İHA sürülerinin RSSI verisi iletimi ve otonom '+' formasyon senkronizasyonunun sağlanması[cite: 13, 14].</li>
+              <li>Gürültülü sinyallerin Kalman/Particle Filter aşamasına hazırlanması için ara katman optimizasyonu[cite: 15].</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-date">HAZİRAN 2025 — TEMMUZ 2025</div>
+            <div class="tl-role">Bilgisayar Mühendisliği Stajyeri</div>
+            <div class="tl-org">ArkSigner Yazılım | Ankara</div>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li>Amazon S3 ile entegre, milyonlarca video varlığının işlenmesi için asenkron .NET doğrulama servisi mimarisinin kurulması[cite: 16, 20].</li>
+              <li>AI4KYC projesi kapsamında gerçek zamanlı hologram tespiti ve düşük gecikmeli WebSocket iletişimi odaklı arka uç iş akışlarının tasarlanması[cite: 21].</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-date">KASIM 2024 — ARALIK 2024</div>
+            <div class="tl-role">Docker Ürün Geliştirme Stajyeri</div>
+            <div class="tl-org">Sivas Bilim ve Teknoloji Üniversitesi</div>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li>Bulut ortamlarında Dağıtık Sistem mimarileri ve mikroservis senkronizasyonu üzerine yapısal çalışmalar[cite: 22, 27].</li>
+              <li>Docker Hub kullanılarak konteynerleştirme stratejilerinin uygulanması[cite: 26].</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-date">EKİM 2024 — KASIM 2024</div>
+            <div class="tl-role">Araştırma Stajyeri</div>
+            <div class="tl-org">İHA Kontrol ve Simülasyon Laboratuvarı</div>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li>Otonom uçuş kontrol doğrulaması için ROS 2 ve Gazebo ortamlarında simülasyon test yataklarının (testbeds) tasarlanması[cite: 28, 31].</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="tl-header">
+            <div class="tl-date">KASIM 2025 — GÜNÜMÜZ</div>
+            <div class="tl-role">Proje Yöneticisi</div>
+            <div class="tl-org">Huawei ICT Topluluğu</div>
+          </div>
+          <div class="tl-body">
+            <ul>
+              <li>Teknik proje yaşam döngülerini yönetmek ve öğrenci geliştirme ekipleri ile Huawei akademik girişimleri arasındaki entegrasyonu sağlamak[cite: 70, 74].</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="deployments">
+      <div class="section-header">
+        <h2>Tactical Deployments</h2>
+        <p>Ulusal savunma yarışmaları, araştırma platformları ve donanım mimarileri.</p>
+      </div>
+
+      <div class="bento-grid">
+        
+        <div class="bento-card span-8" style="border-top: 3px solid var(--status-danger);">
+          <div class="card-header">
+            <h3 class="card-title">Otonom Hava Savunma Sistemi</h3>
+            <span class="badge badge-danger">TEKNOFEST '25 | TURKİYE 6.Sı</span>
+          </div>
+          <p class="card-desc">
+            Ulusal Hava Savunma yarışması için görev kritik bir otonom angajman sistemi tasarlandı; ülke çapında 515 takım arasında 6. olundu[cite: 38]. <strong>"One-Shot Target Acquisition"</strong> boru hattı mimarisi kurgulanarak, önceden eğitilmiş model bağımlılığı olmadan bilinmeyen hedeflere gerçek zamanlı kilitlenme sağlandı[cite: 39, 40]. Sınıftan bağımsız takip motoru ve ROS 2 çerçevesinde yüksek hassasiyetli PID yörünge hizalaması kullanıldı[cite: 41, 42].
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">ROS 2</span>
+            <span class="tech-tag">C++ / Python</span>
+            <span class="tech-tag">PID Control</span>
+            <span class="tech-tag">OpenCV / YOLOv8</span>
+          </div>
+        </div>
+
+        <div class="bento-card span-4" style="border-top: 3px solid var(--brand-primary);">
+          <div class="card-header">
+            <h3 class="card-title">ResearchOS</h3>
+            <span class="badge badge-primary">PRODUCTION</span>
+          </div>
+          <p class="card-desc">
+            YZ Destekli Akademik İş Birliği Motoru[cite: 43]. BCNF uyumlu karmaşık veritabanı şeması ve NLP tabanlı semantik analiz ile yüksek hassasiyetli araştırmacı eşleştirmesi[cite: 45, 46].
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Django REST</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">Gemini API</span>
+          </div>
+        </div>
+
+        <div class="bento-card span-6">
+          <div class="card-header">
+            <h3 class="card-title">Savaşan İHA</h3>
+          </div>
+          <p class="card-desc">
+            Kamikaze görevi için Gazebo ortamında otonom rakip İHA'ya kilitlenme ve taktiksel savaş mantığı entegrasyonu[cite: 34, 36]. Gerçek zamanlı karar verme sistemleri[cite: 35].
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">ROS</span>
+            <span class="tech-tag">Gazebo</span>
+            <span class="tech-tag">C++</span>
+          </div>
+        </div>
+
+        <div class="bento-card span-6">
+          <div class="card-header">
+            <h3 class="card-title">Hardware FSM Controller</h3>
+          </div>
+          <p class="card-desc">
+            CPU yükü olmadan akıllı durum geçişleri sağlayan tam otonom donanımsal trafik denetleyicisi[cite: 59, 62]. K-Map ile optimize edilmiş kombinasyonel mantık ve ayrık Flip-Flop entegrasyonu[cite: 60, 63].
+          </p>
+          <div class="tech-stack">
+            <span class="tech-tag">Digital Logic</span>
+            <span class="tech-tag">Flip-Flops</span>
+            <span class="tech-tag">Logisim</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="registry">
+      <div class="section-header">
+        <h2>System Registry</h2>
+        <p>Açık kaynak ekosistemindeki tüm modüller, orijinal sistemler, fork edilmiş araştırma depoları ve ders mimarileri.</p>
+      </div>
+
+      <div class="archive-controls">
+        <input type="text" id="repoSearch" class="search-input" placeholder="Search repositories by name, stack, or architecture...">
+        <div class="filter-group">
+          <button class="filter-btn active" data-filter="all">ALL</button>
+          <button class="filter-btn" data-filter="original">ORIGINAL</button>
+          <button class="filter-btn" data-filter="fork">FORK / RESEARCH</button>
+          <button class="filter-btn" data-filter="robotics">ROBOTICS & DEFENSE</button>
+          <button class="filter-btn" data-filter="web">WEB & CLOUD</button>
+          <button class="filter-btn" data-filter="mobile">MOBILE</button>
+        </div>
+      </div>
+
+      <div class="repo-grid" id="repoGrid">
+        </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="container">
+      <p class="font-mono text-muted" style="font-size: 0.875rem; letter-spacing: 0.05em;">SYSTEM_ROOT // 2026 // ENGINEERED BY MEHMET YUSUF OCAK</p>
+    </div>
+  </footer>
+
+  <script>
+    const REPO_DATABASE = [
+      { name: "HAVA-SAVUNMA-SISTEM--2025", url: "https://github.com/YusufOck/HAVA-SAVUNMA-SISTEM--2025", lang: "Python/C++", type: "original", tags: ["robotics", "original"], desc: "TEKNOFEST 2025 Air Defense System. Interface-enabled autonomous engagement." },
+      { name: "REAL-ASSISTANS-FOR-ACADEMY", url: "https://github.com/YusufOck/REAL-ASSISTANS-FOR-ACADEMY", lang: "TS/Python", type: "original", tags: ["web", "original"], desc: "AI-driven academic intelligence ecosystem with BCNF compliant database." },
+      { name: "AI4KYC-Project", url: "https://github.com/YusufOck/AI4KYC-Project", lang: "Kotlin", type: "original", tags: ["mobile", "original"], desc: "Real-time hologram verification using WebSockets and CameraX." },
+      { name: "Amazon-S3-and-.NET-Video-Service", url: "https://github.com/YusufOck/Amazon-S3-and-.NET-Video-Service", lang: "C#", type: "original", tags: ["web", "original"], desc: "Automated backend pipeline for video validation, logging and storage management." },
+      { name: "EduSync", url: "https://github.com/YusufOck/EduSync", lang: "Kotlin", type: "original", tags: ["mobile", "original"], desc: "University class scheduling algorithm and conflict resolution." },
+      { name: "Inventory-Management-System-", url: "https://github.com/YusufOck/Inventory-Management-System-", lang: "Java", type: "original", tags: ["original"], desc: "Java Swing enterprise inventory, sales, and tax logic system." },
+      { name: "PX4-gazebo-models", url: "https://github.com/YusufOck/PX4-gazebo-models", lang: "Python", type: "fork", tags: ["robotics", "fork"], desc: "PX4 and Gazebo simulation models for UAV testing." },
+      { name: "ros2-ardupilot-gazebo-harmonic-drone-simulation", url: "https://github.com/YusufOck/ros2-ardupilot-gazebo-harmonic-drone-simulation-tutorial", lang: "C++", type: "fork", tags: ["robotics", "fork"], desc: "Multi-drone simulation framework combining ROS2 and ArduPilot." },
+      { name: "robotics_essentials_ros2", url: "https://github.com/YusufOck/robotics_essentials_ros2", lang: "C++", type: "fork", tags: ["robotics", "fork"], desc: "Core algorithms and node structures for ROS 2 navigation." },
+      { name: "unitree_rl_gym", url: "https://github.com/YusufOck/unitree_rl_gym", lang: "Python", type: "fork", tags: ["robotics", "fork"], desc: "Reinforcement learning environments for quadruped robots." },
+      { name: "copilot-sdk", url: "https://github.com/YusufOck/copilot-sdk", lang: "TypeScript", type: "fork", tags: ["web", "fork"], desc: "SDK integration for GitHub Copilot agents." },
+      { name: "suruiha", url: "https://github.com/YusufOck/suruiha", lang: "Python", type: "fork", tags: ["robotics", "fork"], desc: "Swarm UAV simulation logic." },
+      { name: "Turan-S-HA", url: "https://github.com/YusufOck/Turan-S-HA", lang: "Python", type: "fork", tags: ["robotics", "fork"], desc: "UAV competition framework." },
+      { name: "btk_rag_bot_egitimi", url: "https://github.com/YusufOck/btk_rag_bot_egitimi", lang: "Jupyter", type: "fork", tags: ["fork"], desc: "Retrieval-Augmented Generation (RAG) implementation details." },
+      { name: "opencv", url: "https://github.com/YusufOck/opencv", lang: "C++", type: "fork", tags: ["fork"], desc: "Computer vision library source tracking." },
+      { name: "suruiha_sample_team", url: "https://github.com/YusufOck/suruiha_sample_team", lang: "Python", type: "fork", tags: ["robotics", "fork"], desc: "Gazebo UAV control sample repository." },
+      { name: "TRAFFIC-LIGHT-CONTROL", url: "https://github.com/YusufOck/TRAFFIC-LIGHT-CONTROL-WITH-SENSOR", lang: "C++", type: "coursework", tags: ["coursework"], desc: "Sensor-based state machine for traffic routing." },
+      { name: "DATABASE_SECTIONS", url: "https://github.com/YusufOck/DATABASE_SECTIONS", lang: "SQL", type: "coursework", tags: ["coursework"], desc: "Relational database schema modeling and TSQL." },
+      { name: "Movie-Application", url: "https://github.com/YusufOck/Movie-Application", lang: "Kotlin", type: "original", tags: ["mobile", "original"], desc: "API consumption and local persistence application." },
+      { name: "Food-Ordering-Application", url: "https://github.com/YusufOck/Food-Ordering-Application_", lang: "Kotlin", type: "original", tags: ["mobile", "original"], desc: "State management and UI routing for mobile commerce." },
+      { name: "ToDo-list", url: "https://github.com/YusufOck/ToDo-list", lang: "Kotlin", type: "original", tags: ["mobile", "original"], desc: "Data structures applied to task management." },
+      { name: "SBTU-WEB-PAGE", url: "https://github.com/YusufOck/SBTU-WEB-PAGE", lang: "CSS", type: "original", tags: ["web", "original"], desc: "Institutional web interface design." },
+      { name: "Weather-app", url: "https://github.com/YusufOck/Weather-app", lang: "C#", type: "coursework", tags: ["coursework"], desc: "Client application demonstrating external API fetching." },
+      { name: "Numpy", url: "https://github.com/YusufOck/Numpy", lang: "Jupyter", type: "coursework", tags: ["coursework"], desc: "Matrix operations and data science fundamentals." },
+      { name: "CNG361-Web-Midterm", url: "https://github.com/YusufOck/CNG361-Web-Midterm-MEHMET-YUSUF-OCAK", lang: "HTML", type: "coursework", tags: ["web", "coursework"], desc: "Web architecture fundamentals." },
+      { name: "Web_Lab_Lessons", url: "https://github.com/YusufOck/Web_Lab_Lessons", lang: "CSS", type: "coursework", tags: ["web", "coursework"], desc: "Frontend component modularity." },
+      { name: "YusufOck-MOBILE-DEV", url: "https://github.com/YusufOck/YusufOck-MOBILE-DEVELOPMENT-SBTU", lang: "N/A", type: "coursework", tags: ["mobile", "coursework"], desc: "Mobile computing course deliverables." },
+      { name: "Portfolyo", url: "https://github.com/YusufOck/Portfolyo", lang: "HTML/JS", type: "original", tags: ["web", "original"], desc: "Personal architecture presentation layer." },
+      { name: "awesome-n8n-templates", url: "https://github.com/YusufOck/awesome-n8n-templates", lang: "N/A", type: "fork", tags: ["fork"], desc: "Workflow automation templates." },
+      { name: "YusufOck", url: "https://github.com/YusufOck/YusufOck", lang: "N/A", type: "original", tags: ["original"], desc: "GitHub Profile README." },
+      { name: "Yusuf", url: "https://github.com/YusufOck/Yusuf", lang: "N/A", type: "original", tags: ["original"], desc: "Private metadata repository." }
+    ];
+
+    const repoGrid = document.getElementById('repoGrid');
+    const searchInput = document.getElementById('repoSearch');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    let activeFilter = 'all';
+
+    function renderRepos() {
+      const query = searchInput.value.toLowerCase();
+      repoGrid.innerHTML = '';
+
+      const filtered = REPO_DATABASE.filter(repo => {
+        const matchesSearch = repo.name.toLowerCase().includes(query) || repo.desc.toLowerCase().includes(query) || repo.lang.toLowerCase().includes(query);
+        const matchesFilter = activeFilter === 'all' || repo.tags.includes(activeFilter);
+        return matchesSearch && matchesFilter;
+      });
+
+      filtered.forEach(repo => {
+        const typeClass = repo.type === 'original' ? 'original' : repo.type === 'fork' ? 'fork' : 'coursework';
+        const card = document.createElement('div');
+        card.className = 'repo-item';
+        card.innerHTML = `
+          <div class="repo-top">
+            <h4>${repo.name}</h4>
+            <span class="repo-type ${typeClass}">${repo.type}</span>
+          </div>
+          <p>${repo.desc}</p>
+          <div class="repo-bottom">
+            <span class="repo-lang">${repo.lang}</span>
+            <a href="${repo.url}" target="_blank" class="repo-link">View_Source</a>
+          </div>
+        `;
+        repoGrid.appendChild(card);
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        e.target.classList.add('active');
+        activeFilter = e.target.dataset.filter;
+        renderRepos();
+      });
+    });
+
+    searchInput.addEventListener('input', renderRepos);
+    
+    // Initial load
+    renderRepos();
+  </script>
+</body>
+</html>
